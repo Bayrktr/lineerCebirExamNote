@@ -73,16 +73,38 @@ def sarrus_method_det(array):
 
     return det
 
-def cramer_method_result(array,determinant):
-    return
 
+def cramer_method_result(array, array2, determinant):
+    result_list = []
+    array_column_lenght = array.shape[1]
+    array_row_lenght = array.shape[0]
 
+    new_array_list = []
 
+    for x in range(array_row_lenght):
+        array_copy = array.copy()
+        array_copy[:, x] = array2[:, 0]
+        new_array_list.append(array_copy)
+
+    print(new_array_list)
+
+    for y in range(len(new_array_list)):
+        item = new_array_list[y]
+        result = sarrus_method_det(item) / determinant
+        result_list.append(result)
+
+    return result_list
 
 
 cramer_array = np.array([[1, 3, 5],
                          [2, 6, 7],
                          [3, 6, 4]])
+
+cramer_result_array = np.array([
+    [2], [4], [6]
+
+],
+)
 
 if cramer_array.shape[0] != cramer_array.shape[1]:
     print('not a square matrix')
@@ -91,4 +113,6 @@ det = sarrus_method_det(cramer_array)
 
 print(det)  # -9 result
 
-cramer_method_result(cramer_array,det)
+result = cramer_method_result(cramer_array, cramer_result_array, det)
+
+print(result) # [2.0, -0.0, -0.0] result
